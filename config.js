@@ -1,3 +1,3 @@
 module.exports = {
-    mongoURI: 'mongodb://localhost:27017/safety_app'
+    mongoURI: 'mongodb+srv://davidtgondo:david@iso.w99bqor.mongodb.net/?retryWrites=true&w=majority&appName=iso'
 };
