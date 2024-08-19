@@ -2,3 +2,4 @@ venv
 /backend/venv
 crime_assessment_model.pkl
 node_modules
+.env
