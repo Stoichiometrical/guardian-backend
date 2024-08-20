@@ -260,6 +260,39 @@ def find_safest_route(origin, destination, day_of_week, hour_of_day):
 
     return safest_path, route_description
 
+
+@app.route('/predict_crime', methods=['POST'])
+def predict_crime():
+    data = request.get_json()
+    day_of_week = data.get('day_of_week')
+    hour_of_day = data.get('hour_of_day')
+
+    if day_of_week is None or hour_of_day is None:
+        return jsonify({"error": "Missing parameters"}), 400
+
+    risk = predict_crime_probability(day_of_week, hour_of_day)
+    return jsonify({"crime_risk_probability": risk})
+
+
+@app.route('/find_safest_route', methods=['POST'])
+def safest_route():
+    data = request.get_json()
+    origin = data.get('origin')
+    destination = data.get('destination')
+    day_of_week = data.get('day_of_week')
+    hour_of_day = data.get('hour_of_day')
+
+    if not origin or not destination or day_of_week is None or hour_of_day is None:
+        return jsonify({"error": "Missing parameters"}), 400
+
+    safest_path, route_description = find_safest_route(origin, destination, day_of_week, hour_of_day)
+
+    return jsonify({
+        "safest_path": safest_path,
+        "route_description": route_description
+    })
+
+
 if __name__ == '__main__':
     app.run(port=5000)
 

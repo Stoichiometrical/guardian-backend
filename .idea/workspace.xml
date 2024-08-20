@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="266e031e-e033-4caa-9f41-d2ec98973f79" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/models/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/guardian-backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/guardian-backend.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/j.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_models/j.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kenya_crime_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/old_models/kenya_crime_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_models/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.tx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/route-interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_models/route-interface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ser-api.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/twilior.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_models/twilior.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/voice-transcription.py" beforeDir="false" afterPath="$PROJECT_DIR$/old_models/voice-transcription.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +36,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\David\Documents\GitHub\guardian-backend\old_models" />
+      <recent name="C:\Users\David\Documents\GitHub\guardian-backend\models" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="guardian-backend" type="PythonConfigurationType" factoryName="Python">
       <module name="guardian-backend" />
@@ -88,7 +83,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1724131081651</updated>
-      <workItem from="1724131083549" duration="841000" />
+      <workItem from="1724131083549" duration="2399000" />
     </task>
     <servers />
   </component>
