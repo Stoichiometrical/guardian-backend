@@ -1,26 +1,41 @@
 package com.example.guardianai.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.guardianai.R;
+import com.example.guardianai.activities.LocationSharing;
+import com.example.guardianai.activities.Recording;
+import com.example.guardianai.activities.SafeRoute;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                // Handle the navigation item clicks
+                if (item.getItemId() == R.id.navigation_live_location) {
+                    startActivity(new Intent(MainActivity.this, LocationSharing.class));
+                } else if (item.getItemId() == R.id.navigation_safe_route) {
+                    startActivity(new Intent(MainActivity.this, SafeRoute.class));
+                } else if (item.getItemId() == R.id.navigation_recording) {
+                    startActivity(new Intent(MainActivity.this, Recording.class));
+                } else if (item.getItemId() == R.id.navigation_profile) {
+                    startActivity(new Intent(MainActivity.this, Profile.class));
+                }
+                return true; // Return true to indicate the item selection was handled
+            }
         });
     }
 }

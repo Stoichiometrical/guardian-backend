@@ -1,93 +1,123 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F0F0"
-    >
+    android:id="@+id/main"
+    android:background="@color/black">
 
     <!-- Map View -->
-    <FrameLayout
+    <fragment
         android:id="@+id/map_container"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="20dp"
-        android:background="#D3D3D3">
-        <!-- Placeholder for Map -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Map Loading..."
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:layout_gravity="center"/>
-    </FrameLayout>
+        android:background="#D3D3D3"/>
 
-    <!-- Point of Origin -->
-    <EditText
-        android:id="@+id/origin_input"
+    <!-- Grid Layout for Inputs -->
+    <GridLayout
+        android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Point of Origin"
         android:layout_below="@id/map_container"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_edittext"
-        android:padding="15dp"/>
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="20dp"
+        android:columnCount="1"
+        android:rowCount="3">
 
-    <!-- Destination -->
-    <EditText
-        android:id="@+id/destination_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Destination"
-        android:layout_below="@id/origin_input"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_edittext"
-        android:padding="15dp"/>
+        <!-- Point of Origin -->
+        <EditText
+            android:id="@+id/origin_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Enter Point of Origin"
+            android:padding="10dp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textColorHint="@color/white"/>
+
+        <!-- Destination -->
+        <EditText
+            android:id="@+id/destination_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Enter Destination"
+            android:padding="10dp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textColorHint="@color/white"/>
+
+        <!-- Hour of Day -->
+        <EditText
+            android:id="@+id/hour_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="2"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Enter Hour (0-23)"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:inputType="number"
+            android:padding="10dp"
+            android:maxLength="2"
+            android:textColorHint="@color/white"/>
+    </GridLayout>
 
     <!-- Day of Week -->
     <Spinner
         android:id="@+id/day_of_week_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/destination_input"
+        android:layout_below="@id/grid"
+        android:padding="15dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_spinner"/>
-
-    <!-- Hour of Day -->
-    <TimePicker
-        android:id="@+id/time_picker"
-        android:layout_width="219dp"
-        android:layout_height="114dp"
-        android:layout_below="@id/day_of_week_spinner"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
+        android:theme="@style/CustomSpinnerDropdown"
         android:background="@drawable/rounded_edittext"
-        android:timePickerMode="spinner" />
+        />
 
     <!-- Find Safest Route Button -->
     <Button
         android:id="@+id/find_safest_route_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Find Safest Route"
-        android:layout_below="@id/time_picker"
+        android:layout_below="@id/day_of_week_spinner"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="20dp"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/button_color"
+        android:padding="15dp"
+        android:text="Find Safest Route"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <!-- Display Values -->
+    <TextView
+        android:id="@+id/display_values"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/find_safest_route_button"
         android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:background="@drawable/rounded_edittext"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:padding="15dp"
-        android:backgroundTint="#129CED"
-        android:background="@drawable/rounded_button"/>
+        android:textAlignment="center"
+        android:textSize="13sp"
+        android:text="Values will be displayed here"
+        android:visibility="gone"/> <!-- Initially invisible -->
 
 </RelativeLayout>
+
+

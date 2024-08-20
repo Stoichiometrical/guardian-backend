@@ -1,0 +1,16 @@
+<!-- res/values/styles.xml -->
+<resources>
+    <!-- Other styles -->
+
+    <!-- Custom Spinner Style -->
+    <style name="CustomSpinner" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">#000000</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <!-- Custom Spinner Dropdown Style -->
+    <style name="CustomSpinnerDropdown" >
+        <item name="android:background">@color/black</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+</resources>

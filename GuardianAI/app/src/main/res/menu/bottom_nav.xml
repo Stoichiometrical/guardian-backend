@@ -8,6 +8,7 @@
     <item
         android:id="@+id/navigation_safe_route"
         android:icon="@drawable/route"
+        android:iconTint="@color/white"
         android:title="@string/safe_route" />
 
     <item
