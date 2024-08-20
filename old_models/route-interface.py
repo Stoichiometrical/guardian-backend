@@ -9,7 +9,7 @@ from datetime import datetime
 
 # Load the dataset and trained model
 df = pd.read_csv('kenya_crime_data.csv')
-rf_model = joblib.load('crime_assessment_model.pkl')
+rf_model = joblib.load('../crime_assessment_model.pkl')
 
 # Create a graph
 G = nx.Graph()

@@ -5,7 +5,7 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="174">
+          <list size="195">
             <item index="0" class="java.lang.String" itemvalue="bs4" />
             <item index="1" class="java.lang.String" itemvalue="Babel" />
             <item index="2" class="java.lang.String" itemvalue="scikit-learn" />
@@ -180,6 +180,27 @@
             <item index="171" class="java.lang.String" itemvalue="PyPDF2" />
             <item index="172" class="java.lang.String" itemvalue="sympy" />
             <item index="173" class="java.lang.String" itemvalue="mkl" />
+            <item index="174" class="java.lang.String" itemvalue="SpeechRecognition" />
+            <item index="175" class="java.lang.String" itemvalue="GitPython" />
+            <item index="176" class="java.lang.String" itemvalue="folium" />
+            <item index="177" class="java.lang.String" itemvalue="pydeck" />
+            <item index="178" class="java.lang.String" itemvalue="smmap" />
+            <item index="179" class="java.lang.String" itemvalue="streamlit" />
+            <item index="180" class="java.lang.String" itemvalue="ruamel.yaml" />
+            <item index="181" class="java.lang.String" itemvalue="xyzservices" />
+            <item index="182" class="java.lang.String" itemvalue="gitdb" />
+            <item index="183" class="java.lang.String" itemvalue="toml" />
+            <item index="184" class="java.lang.String" itemvalue="torchvision" />
+            <item index="185" class="java.lang.String" itemvalue="altair" />
+            <item index="186" class="java.lang.String" itemvalue="HyperPyYAML" />
+            <item index="187" class="java.lang.String" itemvalue="watchdog" />
+            <item index="188" class="java.lang.String" itemvalue="branca" />
+            <item index="189" class="java.lang.String" itemvalue="ruamel.yaml.clib" />
+            <item index="190" class="java.lang.String" itemvalue="sentencepiece" />
+            <item index="191" class="java.lang.String" itemvalue="PyAudio" />
+            <item index="192" class="java.lang.String" itemvalue="narwhals" />
+            <item index="193" class="java.lang.String" itemvalue="speechbrain" />
+            <item index="194" class="java.lang.String" itemvalue="torchaudio" />
           </list>
         </value>
       </option>
