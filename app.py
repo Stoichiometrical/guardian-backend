@@ -149,7 +149,7 @@ def analyze_audio():
         if "danger" in analysis.lower() or "help" in analysis.lower():
             response_data["alert"] = "Danger detected, alerting authorities!"
             # Send WhatsApp alert
-            # send_whatsapp_alert(analysis, 'whatsapp:+23058417209')
+            send_whatsapp_alert(analysis, 'whatsapp:+23058417209')
         else:
             response_data["alert"] = "No immediate danger detected."
 
