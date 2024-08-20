@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GuardianAI</string>
+    <string name="safe_route">Safe Route</string>
+    <string name="recording">Recording</string>
+    <string name="profile">Profile</string>
+    <string name="live_location">Live Location</string>
+</resources>

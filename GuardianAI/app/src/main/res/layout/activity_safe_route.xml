@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F0F0"
+    >
+
+    <!-- Map View -->
+    <FrameLayout
+        android:id="@+id/map_container"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="20dp"
+        android:background="#D3D3D3">
+        <!-- Placeholder for Map -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Map Loading..."
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+    <!-- Point of Origin -->
+    <EditText
+        android:id="@+id/origin_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Point of Origin"
+        android:layout_below="@id/map_container"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_edittext"
+        android:padding="15dp"/>
+
+    <!-- Destination -->
+    <EditText
+        android:id="@+id/destination_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Destination"
+        android:layout_below="@id/origin_input"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_edittext"
+        android:padding="15dp"/>
+
+    <!-- Day of Week -->
+    <Spinner
+        android:id="@+id/day_of_week_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/destination_input"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_spinner"/>
+
+    <!-- Hour of Day -->
+    <TimePicker
+        android:id="@+id/time_picker"
+        android:layout_width="219dp"
+        android:layout_height="114dp"
+        android:layout_below="@id/day_of_week_spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded_edittext"
+        android:timePickerMode="spinner" />
+
+    <!-- Find Safest Route Button -->
+    <Button
+        android:id="@+id/find_safest_route_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Find Safest Route"
+        android:layout_below="@id/time_picker"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:padding="15dp"
+        android:backgroundTint="#129CED"
+        android:background="@drawable/rounded_button"/>
+
+</RelativeLayout>
