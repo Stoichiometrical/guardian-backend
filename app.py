@@ -26,6 +26,7 @@ CORS(app)
 # API details
 API_URL = "https://api-inference.huggingface.co/models/ehcalabres/wav2vec2-lg-xlsr-en-speech-emotion-recognition"
 headers = {"Authorization": f"Bearer {os.getenv('HUGGING_FACE_API_KEY')}"}
+DEFAULT_PHONE_NUMBER = '+23058417209'
 
 # Initialize the recognizer
 recognizer = sr.Recognizer()
@@ -291,6 +292,25 @@ def safest_route():
         "safest_path": safest_path,
         "route_description": route_description
     })
+
+
+#Alert@app.route('/send-alert', methods=['POST'])
+def send_alert():
+    data = request.get_json()
+
+    # Get description and optional phone number from request
+    message_body = data.get('description')
+    to_number = data.get('phone_number', DEFAULT_PHONE_NUMBER)
+
+    if not message_body:
+        return jsonify({'error': 'Description is required'}), 400
+
+    try:
+        # Send the alert
+        message_sid = send_whatsapp_alert(message_body, to_number)
+        return jsonify({'message_sid': message_sid}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 if __name__ == '__main__':

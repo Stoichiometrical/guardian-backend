@@ -45,6 +45,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:19.0.0")
     implementation (libs.material.v190)
     implementation (libs.okhttp)
+    implementation (libs.logging.interceptor)
 
 
 }

@@ -75,7 +75,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:backgroundTint="#129CED"
+        android:backgroundTint="@color/button_color"
         android:text="Log In"
         android:textColor="#FFFFFF"
         android:textStyle="bold"

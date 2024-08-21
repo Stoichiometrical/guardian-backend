@@ -27,14 +27,14 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <!-- Username field -->
+    <!-- Full name field -->
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/full_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_marginTop="16dp"
-        android:hint="Your unique username"
+        android:hint="Full Name"
         android:textColorHint="#8C8C8C"
         android:background="@drawable/rounded_edittext"
         android:textColor="#FFFFFF"
@@ -45,14 +45,13 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/username"
+        android:layout_below="@id/full_name"
         android:layout_marginTop="16dp"
         android:hint="Email"
         android:textColorHint="#8C8C8C"
         android:background="@drawable/rounded_edittext"
         android:textColor="#FFFFFF"
-        android:padding="12dp"
-        android:text="marthargondo@gmail.com" />
+        android:padding="12dp" />
 
     <!-- Phone number field -->
     <EditText
@@ -92,8 +91,7 @@
         android:background="@drawable/rounded_edittext"
         android:textColor="#FFFFFF"
         android:padding="12dp"
-        android:inputType="textPassword"
-        />
+        android:inputType="textPassword" />
 
     <!-- Sign up button -->
     <Button
@@ -103,7 +101,7 @@
         android:layout_below="@id/password"
         android:layout_marginTop="24dp"
         android:text="Sign Up"
-        android:backgroundTint="#129CED"
+        android:backgroundTint="@color/button_color"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:padding="12dp" />
