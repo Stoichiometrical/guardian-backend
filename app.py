@@ -294,7 +294,8 @@ def safest_route():
     })
 
 
-#Alert@app.route('/send-alert', methods=['POST'])
+#Alert
+@app.route('/send-alert', methods=['POST'])
 def send_alert():
     data = request.get_json()
 
