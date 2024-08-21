@@ -26,7 +26,7 @@ CORS(app)
 # API details
 API_URL = "https://api-inference.huggingface.co/models/ehcalabres/wav2vec2-lg-xlsr-en-speech-emotion-recognition"
 headers = {"Authorization": f"Bearer {os.getenv('HUGGING_FACE_API_KEY')}"}
-DEFAULT_PHONE_NUMBER = '+23058417209'
+DEFAULT_PHONE_NUMBER = "whatsapp:+23058417209"
 
 # Initialize the recognizer
 recognizer = sr.Recognizer()

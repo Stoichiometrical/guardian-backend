@@ -283,11 +283,15 @@
 
 package com.example.guardianai.activities;
 
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -314,6 +318,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class LocationSharing extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
@@ -322,11 +338,15 @@ public class LocationSharing extends AppCompatActivity implements OnMapReadyCall
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationClient;
     private LatLng currentLocation;
-
+    private ExecutorService executorService;
+    private static final String TAG = "LocationSharing";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_sharing);
+
+        // Initialize ExecutorService
+        executorService = Executors.newSingleThreadExecutor();
 
         // Set up the toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -359,6 +379,7 @@ public class LocationSharing extends AppCompatActivity implements OnMapReadyCall
                 micIcon.startAnimation(throbbingAnimation);
                 recordingControlText.setText("Sending distress signal...");
                 Toast.makeText(LocationSharing.this, "Distress signal sent, your location is shared, and recording started", Toast.LENGTH_LONG).show();
+                sendDistressSignal();
             } else {
                 // Stop sending distress signal
                 micIcon.clearAnimation();
@@ -384,29 +405,26 @@ public class LocationSharing extends AppCompatActivity implements OnMapReadyCall
         // Set up bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Intent intent = null;
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            Intent intent = null;
 
-                if (item.getItemId() == R.id.navigation_live_location) {
-                    intent = new Intent(LocationSharing.this, LocationSharing.class);
-                } else if (item.getItemId() == R.id.navigation_safe_route) {
-                    intent = new Intent(LocationSharing.this, SafeRoute.class);
-                } else if (item.getItemId() == R.id.navigation_recording) {
-                    intent = new Intent(LocationSharing.this, Recording.class);
-                } else if (item.getItemId() == R.id.navigation_profile) {
-                    intent = new Intent(LocationSharing.this, Profile.class);
-                }
-
-                if (intent != null) {
-                    startActivity(intent);
-                    // Apply transition animation
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                }
-
-                return true; // Return true to indicate the item selection was handled
+            if (item.getItemId() == R.id.navigation_live_location) {
+                intent = new Intent(LocationSharing.this, LocationSharing.class);
+            } else if (item.getItemId() == R.id.navigation_safe_route) {
+                intent = new Intent(LocationSharing.this, SafeRoute.class);
+            } else if (item.getItemId() == R.id.navigation_recording) {
+                intent = new Intent(LocationSharing.this, Recording.class);
+            } else if (item.getItemId() == R.id.navigation_profile) {
+                intent = new Intent(LocationSharing.this, Profile.class);
             }
+
+            if (intent != null) {
+                startActivity(intent);
+                // Apply transition animation
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+
+            return true; // Return true to indicate the item selection was handled
         });
     }
 
@@ -447,5 +465,63 @@ public class LocationSharing extends AppCompatActivity implements OnMapReadyCall
             Toast.makeText(this, "Location not found. Try again later.", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void sendDistressSignal() {
+        if (currentLocation != null) {
+            String distressMessage = "Hello, this is my distress signal. I might be in danger, here is my current location: http://maps.google.com/maps?q=" + currentLocation.latitude + "," + currentLocation.longitude;
+            executorService.execute(() -> {
+                HttpURLConnection connection = null;
+                try {
+                    URL url = new URL("https://guardianai-m2kc.onrender.com/send-alert");
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("POST");
+                    connection.setRequestProperty("Content-Type", "application/json");
+                    connection.setDoOutput(true);
+
+                    JSONObject jsonParam = new JSONObject();
+                    jsonParam.put("description", distressMessage);
+
+                    Log.d(TAG, "Sending distress signal: " + jsonParam.toString()); // Log the payload
+
+                    OutputStream os = connection.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(jsonParam.toString());
+                    writer.flush();
+                    writer.close();
+                    os.close();
+
+                    int responseCode = connection.getResponseCode();
+                    Log.d(TAG, "Response Code: " + responseCode); // Log the response code
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = in.readLine()) != null) {
+                        response.append(line);
+                    }
+                    in.close();
+
+                    Log.d(TAG, "Response Body: " + response.toString()); // Log the response body
+
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        runOnUiThread(() -> Toast.makeText(LocationSharing.this, "Distress signal sent successfully.", Toast.LENGTH_SHORT).show());
+                    } else {
+                        runOnUiThread(() -> Toast.makeText(LocationSharing.this, "Failed to send distress signal.", Toast.LENGTH_SHORT).show());
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Error sending distress signal: " + e.getMessage(), e); // Log the error
+                    runOnUiThread(() -> Toast.makeText(LocationSharing.this, "Error sending distress signal: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                } finally {
+                    if (connection != null) {
+                        connection.disconnect();
+                    }
+                }
+            });
+        } else {
+            Toast.makeText(this, "Location not available. Try again later.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
+
 
