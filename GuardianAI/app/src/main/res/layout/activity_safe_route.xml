@@ -132,13 +132,13 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_below="@id/find_safest_route_button"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/rounded_edittext"
-        android:padding="10dp"
+        android:padding="1dp"
         android:text="Values will be displayed here"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="13sp"
+        android:textSize="12sp"
         android:textStyle="bold"
         android:visibility="invisible" />
 
@@ -148,7 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        android:text="Loading..."
+        android:text="Finding safest route..."
         android:textColor="#FFFFFF"
         android:textSize="18sp" />
 </RelativeLayout>

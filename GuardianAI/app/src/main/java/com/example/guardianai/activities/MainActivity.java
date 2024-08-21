@@ -24,16 +24,24 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                // Handle the navigation item clicks
+                Intent intent = null;
+
                 if (item.getItemId() == R.id.navigation_live_location) {
-                    startActivity(new Intent(MainActivity.this, LocationSharing.class));
+                    intent = new Intent(MainActivity.this, LocationSharing.class);
                 } else if (item.getItemId() == R.id.navigation_safe_route) {
-                    startActivity(new Intent(MainActivity.this, SafeRoute.class));
+                    intent = new Intent(MainActivity.this, SafeRoute.class);
                 } else if (item.getItemId() == R.id.navigation_recording) {
-                    startActivity(new Intent(MainActivity.this, Recording.class));
+                    intent = new Intent(MainActivity.this, Recording.class);
                 } else if (item.getItemId() == R.id.navigation_profile) {
-                    startActivity(new Intent(MainActivity.this, Profile.class));
+                    intent = new Intent(MainActivity.this, Profile.class);
                 }
+
+                if (intent != null) {
+                    startActivity(intent);
+                    // Apply transition animation
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                }
+
                 return true; // Return true to indicate the item selection was handled
             }
         });

@@ -1,10 +1,82 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.LandingActivity">
+    android:background="#161622"
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- GuardianAI logo -->
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="244dp"
+        android:layout_height="129dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo" />
+
+    <!-- Image section with two phones -->
+    <ImageView
+        android:id="@+id/image_section"
+        android:layout_width="353dp"
+        android:layout_height="269dp"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/landing" />
+
+    <!-- "Discover Endless Possibilities" text -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_section"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Discover Endless\nPossibilities"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <!-- Subtitle text -->
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="Your personal safety companion, using advanced AI technology to keep you safe and secure."
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp" />
+
+    <!-- Continue with Email button -->
+    <Button
+        android:id="@+id/btn_continue_with_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subtitle"
+        android:layout_marginTop="24dp"
+        android:text="Continue with Email"
+        android:backgroundTint="#129CED"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Skip for Now text -->
+    <TextView
+        android:id="@+id/skip_for_now"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_continue_with_email"
+        android:layout_marginTop="12dp"
+        android:text="Skip for Now"
+        android:textColor="#129CED"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
