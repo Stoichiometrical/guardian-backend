@@ -8,7 +8,7 @@ import pandas as pd
 app = Flask(__name__)
 
 # Load the trained model
-model = joblib.load('crime_prediction_model.pkl')
+model = joblib.load('../crime_prediction_model.pkl')
 
 # Define towns and routes (same as provided)
 towns = {

@@ -43,19 +43,35 @@ auth_token = os.getenv('TWILIO_AUTH_TOKEN')
 twilio_client = Client(account_sid, auth_token)
 
 # Function to query the Hugging Face API for emotion recognition
+# def query_emotion(filename):
+#     try:
+#         print("Starting emotion recognition query...")
+#         with open(filename, "rb") as f:
+#             data = f.read()
+#         response = requests.post(API_URL, headers=headers, data=data, timeout=30)  # Increased timeout
+#         print(f"Received response status: {response.status_code}")
+#         response.raise_for_status()  # Raise an exception for HTTP errors
+#         print(response.json())
+#         return response.json()
+#     except requests.exceptions.RequestException as e:
+#         print(f"Error querying emotion recognition API: {e}")
+#         raise
+
 def query_emotion(filename):
     try:
         print("Starting emotion recognition query...")
         with open(filename, "rb") as f:
             data = f.read()
-        response = requests.post(API_URL, headers=headers, data=data, timeout=30)  # Increased timeout
+        response = requests.post(API_URL, headers=headers, data=data, timeout=30)
         print(f"Received response status: {response.status_code}")
+        print(f"Response content: {response.text}")  # Log the full response content
         response.raise_for_status()  # Raise an exception for HTTP errors
         print(response.json())
         return response.json()
     except requests.exceptions.RequestException as e:
         print(f"Error querying emotion recognition API: {e}")
         raise
+
 
 # Function to transcribe audio to text using SpeechRecognition
 def transcribe_audio(audio_file):
@@ -109,6 +125,9 @@ def analyze_audio():
         audio_file = request.files['file']
         temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
         audio_file.save(temp_file.name)
+
+        # Log file details
+        print(f"Saved file to: {temp_file.name}")
 
         # Step 1: Emotion Recognition
         try:

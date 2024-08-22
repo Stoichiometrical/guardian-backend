@@ -5,7 +5,6 @@
     android:background="#121227"
     android:id="@+id/main">
 
-    <!-- Safety Recording Text -->
     <TextView
         android:id="@+id/safety_recording_text"
         android:layout_width="279dp"
@@ -18,7 +17,6 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <!-- Mic Icon -->
     <ImageView
         android:id="@+id/mic_icon"
         android:layout_width="188dp"
@@ -26,9 +24,8 @@
         android:layout_below="@id/safety_recording_text"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:src="@drawable/record" /> <!-- Use your drawable -->
+        android:src="@drawable/record" />
 
-    <!-- Recording Control Text -->
     <TextView
         android:id="@+id/recording_control_text"
         android:layout_width="wrap_content"
@@ -42,7 +39,6 @@
         android:clickable="true"
         android:focusable="true" />
 
-    <!-- Instruction Text -->
     <TextView
         android:id="@+id/instruction_text"
         android:layout_width="359dp"

@@ -75,7 +75,7 @@ def get_safest_route():
     travel_date = datetime.strptime(travel_date_str, '%Y-%m-%d %H:%M')
 
     # Load the town data from CSV
-    kenya_towns = load_town_data('../towns_data.csv')
+    kenya_towns = load_town_data('towns_data.csv')
 
     # Calculate the safest route
     safest_route, route_map = load_model_and_calculate_safest_route(kenya_towns, start_town, end_town, travel_date)
