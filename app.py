@@ -91,7 +91,7 @@ def transcribe_audio(audio_file):
 def analyze_with_gemini(content):
     try:
         print("Starting analysis with Gemini...")
-        prompt = f"Analyze the following audio text and determine if there's any cause for concern: {content}"
+        prompt = f"Analyze the following audio text and determine if there's any cause for concern: {content}  .If there is cause for concern summarise whats happening.If there is cause for concern, respond with.Hey, this is my safe tracking alert, l might be in danger.Here is a summary of whats  happening[put summary here], please call the police or check on me. Your response should look like a typical alert whatsapp message"
         # Initialize Google Generative AI
         client = GoogleGenerativeAI(model="gemini-pro", google_api_key=os.getenv('GOOGLE_API_KEY'))
         chain = ConversationChain(llm=client)
