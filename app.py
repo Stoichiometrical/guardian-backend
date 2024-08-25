@@ -1,4 +1,3 @@
-
 import os
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
@@ -41,6 +40,7 @@ negative_emotions = {'angry', 'disgust', 'fearful', 'sad'}
 account_sid = os.getenv('TWILIO_ACCOUNT_SID')
 auth_token = os.getenv('TWILIO_AUTH_TOKEN')
 twilio_client = Client(account_sid, auth_token)
+
 
 # Function to query the Hugging Face API for emotion recognition
 # def query_emotion(filename):
@@ -87,6 +87,7 @@ def transcribe_audio(audio_file):
         print(f"Error transcribing audio: {e}")
         raise
 
+
 # # Function to analyze the transcript or emotions using Gemini/LLM
 # def analyze_with_gemini(content):
 #     try:
@@ -115,9 +116,9 @@ def analyze_with_gemini(content):
             f"Alert: Analyze the following text for any cause for concern and provide a summary if necessary. "
             f"Text to analyze: {content}.\n"
             f"If you determine that there is cause for concern, respond with: "
-        "Hey, this is my safe tracking alert. I might be in danger. Here is a summary of what’s happening: "
+            "Hey, this is my safe tracking alert. I might be in danger. Here is a summary of what’s happening: "
             f"[put summary here]. Please call the police or check on me. Your response should be formatted as a typical WhatsApp alert message.\"\n"
-            f"Provide a response that clearly indicates whether there is an immediate danger and includes a call-to-action.In the summary dontv talk like an AI just summarise whats happening"
+            f"Provide a response that clearly indicates whether there is an immediate danger and includes a call-to-action.In the summary dontv talk like an AI just summarise whats happening.If there is no cause for concern just respond with the word SAFE"
         )
 
         # Initialize Google Generative AI
@@ -132,6 +133,7 @@ def analyze_with_gemini(content):
         print(f"Error analyzing with Gemini: {e}")
         raise
 
+
 def send_whatsapp_alert(message_body, to_number):
     try:
         message = twilio_client.messages.create(
@@ -144,6 +146,7 @@ def send_whatsapp_alert(message_body, to_number):
     except Exception as e:
         print(f"Error sending WhatsApp message: {e}")
         raise
+
 
 # Endpoint to process audio, recognize emotions, transcribe speech, and analyze with Gemini
 @app.route('/analyze_audio', methods=['POST'])
@@ -260,7 +263,7 @@ def sending_alert():
         if "danger" in analysis.lower() or "help" in analysis.lower():
             response_data["alert"] = "Danger detected, alerting authorities!"
             print("Danger detected in analysis. Sending WhatsApp alert...")
-            # send_whatsapp_alert(analysis, 'whatsapp:+23058417209')
+            send_whatsapp_alert(analysis, 'whatsapp:+23058417209')
             print("WhatsApp alert sent.")
         else:
             response_data["alert"] = "No immediate danger detected."
@@ -274,7 +277,6 @@ def sending_alert():
     except Exception as e:
         print(f"An error occurred during the alert processing: {str(e)}")
         return jsonify({"error": str(e)}), 500
-
 
 
 model = joblib.load('crime_prediction_model.pkl')
@@ -438,7 +440,6 @@ def health_check():
 
 if __name__ == '__main__':
     app.run(port=5000)
-
 
 # import os
 # from dotenv import load_dotenv
@@ -610,13 +611,4 @@ if __name__ == '__main__':
 #
 
 
-
-
-
-
 # Load the trained model
-
-
-
-
-
