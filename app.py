@@ -87,23 +87,51 @@ def transcribe_audio(audio_file):
         print(f"Error transcribing audio: {e}")
         raise
 
+# # Function to analyze the transcript or emotions using Gemini/LLM
+# def analyze_with_gemini(content):
+#     try:
+#         print("Starting analysis with Gemini...")
+#         prompt = f"Analyze the following audio text and determine if there's any cause for concern: {content}  .If there is cause for concern summarise whats happening.If there is cause for concern, respond with.Hey, this is my safe tracking alert, l might be in danger.Here is a summary of whats  happening[put summary here], please call the police or check on me. Your response should look like a typical alert whatsapp message"
+#         # Initialize Google Generative AI
+#         client = GoogleGenerativeAI(model="gemini-pro", google_api_key=os.getenv('GOOGLE_API_KEY'))
+#         chain = ConversationChain(llm=client)
+#         response = client.generate([prompt])
+#         analysis = response.generations[0][0].text
+#         print("Analysis with Gemini completed.")
+#         return analysis
+#     except Exception as e:
+#         print(f"Error analyzing with Gemini: {e}")
+#         raise
+
+# Function to send WhatsApp alert using Twilio
+
 # Function to analyze the transcript or emotions using Gemini/LLM
 def analyze_with_gemini(content):
     try:
         print("Starting analysis with Gemini...")
-        prompt = f"Analyze the following audio text and determine if there's any cause for concern: {content}  .If there is cause for concern summarise whats happening.If there is cause for concern, respond with.Hey, this is my safe tracking alert, l might be in danger.Here is a summary of whats  happening[put summary here], please call the police or check on me. Your response should look like a typical alert whatsapp message"
+
+        # Improved prompt for generating an alert message
+        prompt = (
+            f"Alert: Analyze the following text for any cause for concern and provide a summary if necessary. "
+            f"Text to analyze: {content}.\n"
+            f"If you determine that there is cause for concern, respond with: "
+        "Hey, this is my safe tracking alert. I might be in danger. Here is a summary of what’s happening: "
+            f"[put summary here]. Please call the police or check on me. Your response should be formatted as a typical WhatsApp alert message.\"\n"
+            f"Provide a response that clearly indicates whether there is an immediate danger and includes a call-to-action.In the summary dontv talk like an AI just summarise whats happening"
+        )
+
         # Initialize Google Generative AI
         client = GoogleGenerativeAI(model="gemini-pro", google_api_key=os.getenv('GOOGLE_API_KEY'))
         chain = ConversationChain(llm=client)
         response = client.generate([prompt])
-        analysis = response.generations[0][0].text
+        analysis = response.generations[0][0].text.strip()
+
         print("Analysis with Gemini completed.")
         return analysis
     except Exception as e:
         print(f"Error analyzing with Gemini: {e}")
         raise
 
-# Function to send WhatsApp alert using Twilio
 def send_whatsapp_alert(message_body, to_number):
     try:
         message = twilio_client.messages.create(
@@ -177,6 +205,76 @@ def analyze_audio():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+@app.route('/alert', methods=['POST'])
+def sending_alert():
+    try:
+        # Log the start of the request processing
+        print("Received a new alert request.")
+
+        # Retrieve the uploaded audio file and emotions string from the request
+        audio_file = request.files['file']
+        emotions = request.form['emotions']  # Emotions received as a string from the request
+
+        # Log the received parameters
+        print(f"Received audio file: {audio_file.filename}")
+        print(f"Received emotions: {emotions}")
+
+        # Save the audio file temporarily
+        temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
+        audio_file.save(temp_file.name)
+
+        # Log the file saving process
+        print(f"Audio file saved temporarily to: {temp_file.name}")
+
+        # Step 2: Attempt to transcribe the audio
+        transcript = None
+        try:
+            print("Attempting to transcribe the audio...")
+            transcript = transcribe_audio(temp_file.name)
+            print(f"Audio transcription successful: {transcript}")
+        except Exception as e:
+            print(f"Audio transcription failed: {str(e)}")
+            transcript = None
+
+        # Step 3: Analyze with Gemini
+        try:
+            if transcript:
+                print("Sending transcript to Gemini for analysis...")
+                analysis = analyze_with_gemini(transcript)
+                print(f"Analysis result from Gemini (based on transcript): {analysis}")
+            else:
+                print("Sending emotions to Gemini for analysis (since transcription failed)...")
+                analysis = analyze_with_gemini(emotions)
+                print(f"Analysis result from Gemini (based on emotions): {analysis}")
+        except Exception as e:
+            print(f"Analysis with Gemini failed: {str(e)}")
+            return jsonify({"error": f"Analysis with Gemini failed: {str(e)}"}), 500
+
+        # Step 4: Determine if there's a danger and send WhatsApp alert
+        response_data = {
+            "transcript": transcript if transcript else "Voices could not be understood clearly",
+            "analysis": analysis
+        }
+        if "danger" in analysis.lower() or "help" in analysis.lower():
+            response_data["alert"] = "Danger detected, alerting authorities!"
+            print("Danger detected in analysis. Sending WhatsApp alert...")
+            # send_whatsapp_alert(analysis, 'whatsapp:+23058417209')
+            print("WhatsApp alert sent.")
+        else:
+            response_data["alert"] = "No immediate danger detected."
+            print("No immediate danger detected.")
+
+        # Log the final response data
+        print(f"Response data: {response_data}")
+
+        return jsonify(response_data), 200
+
+    except Exception as e:
+        print(f"An error occurred during the alert processing: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
 
 
 model = joblib.load('crime_prediction_model.pkl')
